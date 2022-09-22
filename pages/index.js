@@ -1,7 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import Concept from "../components/Concept";
+import ConceptExpand from "../components/ConceptExpand";
+import ConceptSearch from "../components/ConceptSearch";
 
 const data = [
   {
@@ -30,7 +33,7 @@ const data = [
   },
   {
     conceptId: 4,
-    displayName: "Mutiple Sclerosis (MS)",
+    displayName: "Multiple Sclerosis (MS)",
     description: "Multiple Sclerosis",
     parentIds: "2,8",
     childIds: "5,6,7",
@@ -39,7 +42,10 @@ const data = [
 ];
 
 export default function Home() {
-  const [expandTicket, setExpandTicket] = useState(false);
+  const [expandTicket, setExpandTicket] = useState({
+    state: false,
+    id: 0,
+  });
   const [searchTerm, setSearchTerm] = useState("");
 
   const dynamicSearch = () => {
@@ -50,40 +56,37 @@ export default function Home() {
 
   const filteredData = dynamicSearch();
 
-  const toggleExpandTicket = () => {
-    setExpandTicket(!expandTicket);
+  const toggleExpandTicket = (id) => {
+    if (expandTicket.id === id) {
+      setExpandTicket({ state: false, id: 0 });
+    } else {
+      setExpandTicket({ state: true, id });
+    }
   };
 
   return (
     <div className="flex mx-auto items-center flex-col mt-8">
       <h2 className="text-3xl text-center">Master Oncology Lookup</h2>
-      <div className="mt-8 bg-gray-300 p-4 w-full max-w-[960px] mx-2 rounded space-y-2">
+      <div className="mt-8 bg-gray-300 p-4 w-full max-w-[960px] mx-2 rounded">
         <div>
-          <form>
-            <input
-              name="email"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by email"
-              className="w-full mb-8 py-2 px-4 rounded-md"
-            />
-          </form>
+          <ConceptSearch
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
         </div>
         {filteredData.length === 0 ? (
-          <h2>No data fits that criteria.</h2>
+          <p>No data fits that criteria.</p>
         ) : (
           filteredData.map((concept) => (
-            <div
-              key={concept.conceptId}
-              onClick={toggleExpandTicket}
-              className="mx-auto w-full bg-gray-400 p-4 rounded flex justify-between items-center"
-            >
-              <div>
-                <p>{concept.displayName}</p>
-              </div>
-              <div>
-                <ChevronDownIcon className="w-5" />
-              </div>
+            <div className="mt-2" key={concept.conceptId}>
+              <Concept
+                toggleExpandTicket={toggleExpandTicket}
+                concept={concept}
+                expandTicket={expandTicket}
+              />
+              {expandTicket.state && expandTicket.id === concept.conceptId ? (
+                <ConceptExpand concept={concept} />
+              ) : null}
             </div>
           ))
         )}
