@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 import { saveConcept } from "../util/api";
 
-const AddConceptForm = ({ concepts, setConcepts }) => {
+const AddConceptForm = ({ concepts, setShowForm }) => {
   const [data, setData] = useState({
     displayName: "",
     alternativeNames: "",
@@ -32,7 +32,6 @@ const AddConceptForm = ({ concepts, setConcepts }) => {
         children: childrenSelected,
       });
 
-      // setConcepts([...concepts, concept]);
       console.log(concept);
       refreshData();
     } catch (err) {
@@ -93,9 +92,17 @@ const AddConceptForm = ({ concepts, setConcepts }) => {
         />
       </div>
 
-      <button className="p-2 py-3 mt-4 w-full max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 hover:drop-shadow-lg text-white rounded drop-shadow">
-        Save Concept
-      </button>
+      <div className="flex justify-around w-full">
+        <button className="p-2 py-3 mt-4 w-full max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 text-white rounded drop-shadow">
+          Save Concept
+        </button>
+        <button
+          className="p-2 py-3 mt-4 w-full max-w-[200px] text-sm bg-white border-blue-800 border-2 text-blue-800 hover:text-blue-600 hover:border-blue-600 rounded drop-shadow"
+          onClick={() => setShowForm(false)}
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };

@@ -37,7 +37,7 @@ const ConceptExpand = ({ concept, setSearchTerm }) => {
             )}
           </div>
           <button
-            className="p-2 py-3 mt-4 w-full max-w-[160px] text-sm bg-red-700 hover:bg-red-600 hover:drop-shadow-lg text-white rounded drop-shadow"
+            className="p-2 py-3 mt-4 w-full max-w-[160px] text-sm bg-red-700 hover:bg-red-600 text-white rounded drop-shadow"
             onClick={async () => {
               await deleteConcept(concept.id);
               refreshData();
