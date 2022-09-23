@@ -9,7 +9,7 @@ const ConceptLookupSystem = ({
   filteredData,
   toggleExpandTicket,
   expandTicket,
-  saveConcept,
+  refreshData,
   concepts,
   setConcepts,
 }) => {
@@ -41,11 +41,7 @@ const ConceptLookupSystem = ({
         </div>
 
         {showForm && (
-          <AddConceptForm
-            concepts={concepts}
-            setConcepts={setConcepts}
-            saveConcept={saveConcept}
-          />
+          <AddConceptForm concepts={concepts} setConcepts={setConcepts} />
         )}
       </div>
       {filteredData.length === 0 ? (
@@ -54,6 +50,7 @@ const ConceptLookupSystem = ({
         filteredData.map((concept) => (
           <div className="mt-2" key={concept.id}>
             <Concept
+              setSearchTerm={setSearchTerm}
               toggleExpandTicket={toggleExpandTicket}
               concept={concept}
               expandTicket={expandTicket}

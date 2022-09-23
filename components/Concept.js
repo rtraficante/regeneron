@@ -2,7 +2,12 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import ConceptExpand from "./ConceptExpand";
 
-const Concept = ({ toggleExpandTicket, concept, expandTicket }) => {
+const Concept = ({
+  toggleExpandTicket,
+  concept,
+  expandTicket,
+  setSearchTerm,
+}) => {
   return (
     <div className="overflow-hidden flex flex-col mx-auto w-full bg-white p-4 rounded drop-shadow cursor-pointer">
       <div
@@ -21,7 +26,7 @@ const Concept = ({ toggleExpandTicket, concept, expandTicket }) => {
         </div>
       </div>
       {expandTicket.state && expandTicket.id === concept.id ? (
-        <ConceptExpand concept={concept} />
+        <ConceptExpand concept={concept} setSearchTerm={setSearchTerm} />
       ) : null}
     </div>
   );

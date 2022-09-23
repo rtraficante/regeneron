@@ -1,12 +1,20 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
+import { saveConcept } from "../util/api";
 
-const AddConceptForm = ({ saveConcept, concepts, setConcepts }) => {
+const AddConceptForm = ({ concepts, setConcepts }) => {
   const [data, setData] = useState({
     displayName: "",
     alternativeNames: "",
     description: "",
   });
+
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
 
   const [parentsSelected, setParentsSelected] = useState([]);
   const [childrenSelected, setChrildrenSelected] = useState([]);
@@ -18,20 +26,22 @@ const AddConceptForm = ({ saveConcept, concepts, setConcepts }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await saveConcept({
+      const concept = await saveConcept({
         ...data,
         parents: parentsSelected,
         children: childrenSelected,
       });
 
-      setConcepts([...concepts, data]);
+      // setConcepts([...concepts, concept]);
+      console.log(concept);
+      refreshData();
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleChange = (e) => {
-    e.persist();
+    e.preventDefault();
     setData(() => ({
       ...data,
       [e.target.name]: e.target.value,
@@ -44,6 +54,7 @@ const AddConceptForm = ({ saveConcept, concepts, setConcepts }) => {
         <input
           onChange={handleChange}
           value={data.displayName}
+          required
           name="displayName"
           placeholder="Concept Name"
           className="py-1 px-2 border-2 rounded"

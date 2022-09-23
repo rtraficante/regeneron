@@ -2,32 +2,7 @@ import { useState } from "react";
 import ConceptLookupSystem from "../components/ConceptLookupSystem";
 import prisma from "../client";
 
-export async function getServerSideProps() {
-  const concepts = await prisma.concept.findMany();
-
-  return {
-    props: {
-      initialConcepts: concepts,
-    },
-  };
-}
-
-async function saveConcept(concept) {
-  const res = await fetch("/api/concepts", {
-    method: "POST",
-    body: JSON.stringify(concept),
-  });
-
-  if (!res.ok) {
-    throw new Error(res.statusText);
-  }
-
-  return await res.json();
-}
-
-export default function Home({ initialConcepts }) {
-  const [concepts, setConcepts] = useState(initialConcepts);
-
+export default function Home({ concepts }) {
   const [expandTicket, setExpandTicket] = useState({
     state: false,
     id: 0,
@@ -55,8 +30,6 @@ export default function Home({ initialConcepts }) {
       <h2 className="text-3xl text-center">Master Oncology Lookup</h2>
       <ConceptLookupSystem
         concepts={concepts}
-        setConcepts={setConcepts}
-        saveConcept={saveConcept}
         filteredData={filteredData}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -65,4 +38,19 @@ export default function Home({ initialConcepts }) {
       />
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const concepts = await prisma.concept.findMany({
+    include: {
+      parents: true,
+      children: true,
+    },
+  });
+
+  return {
+    props: {
+      concepts,
+    },
+  };
 }
