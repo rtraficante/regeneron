@@ -11,6 +11,7 @@ const ConceptLookupSystem = ({
   expandTicket,
   saveConcept,
   concepts,
+  setConcepts,
 }) => {
   const [showForm, setShowForm] = useState(false);
 
@@ -40,7 +41,11 @@ const ConceptLookupSystem = ({
         </div>
 
         {showForm && (
-          <AddConceptForm concepts={concepts} saveConcept={saveConcept} />
+          <AddConceptForm
+            concepts={concepts}
+            setConcepts={setConcepts}
+            saveConcept={saveConcept}
+          />
         )}
       </div>
       {filteredData.length === 0 ? (

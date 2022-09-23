@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
-const AddConceptForm = ({ saveConcept, concepts }) => {
+const AddConceptForm = ({ saveConcept, concepts, setConcepts }) => {
   const [data, setData] = useState({
     displayName: "",
     alternativeNames: "",
-    parents: [],
-    children: [],
     description: "",
   });
 
+  const [parentsSelected, setParentsSelected] = useState([]);
+  const [childrenSelected, setChrildrenSelected] = useState([]);
+
   const options = concepts.map((val) => {
-    return { label: val.displayName, value: val.displayName };
+    return { id: val.id, label: val.displayName, value: val.displayName };
   });
 
-  const handleSubmit = async (data, e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await saveConcept(data);
+      await saveConcept({
+        ...data,
+        parents: parentsSelected,
+        children: childrenSelected,
+      });
 
-      e.target.reset();
+      setConcepts([...concepts, data]);
     } catch (err) {
       console.log(err);
     }
@@ -30,13 +35,6 @@ const AddConceptForm = ({ saveConcept, concepts }) => {
     setData(() => ({
       ...data,
       [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleParentChange = (e) => {
-    setData(() => ({
-      ...data,
-      parents: [e.target.value],
     }));
   };
 
@@ -56,26 +54,26 @@ const AddConceptForm = ({ saveConcept, concepts }) => {
           placeholder="Alternative Names (separate by commas)"
           className="py-1 px-2 border-2 rounded"
         />
+        <div>
+          <h2>Select Parents</h2>
+          <MultiSelect
+            options={options}
+            value={parentsSelected}
+            onChange={setParentsSelected}
+            labelledBy={"Select Parents"}
+          />
+        </div>
 
-        <MultiSelect
-          options={options}
-          value={data.parents}
-          // onChange={() => setData(() => ({ ...data, parents:  }))}
-          labelledBy="Select Parents"
-        />
+        <div>
+          <h2>Select Children</h2>
+          <MultiSelect
+            options={options}
+            value={childrenSelected}
+            onChange={setChrildrenSelected}
+            labelledBy="Select Children"
+          />
+        </div>
 
-        <select
-          // onChange={handleSelectChange}
-          multiple={true}
-          name="chidren"
-          placeholder="Select Childre"
-          className="py-1 px-2 border-2 rounded"
-          value={data.children}
-        >
-          <option value="DEFAULT" disabled>
-            Select Children
-          </option>
-        </select>
         <textarea
           onChange={handleChange}
           name="description"
