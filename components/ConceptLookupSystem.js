@@ -21,14 +21,14 @@ const ConceptLookupSystem = ({
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
-          {!showForm ? (
+          {!showForm && (
             <button
               className="p-2 py-3 w-[180px] max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 hover:drop-shadow-lg text-white rounded drop-shadow"
               onClick={() => setShowForm(true)}
             >
               Add Concept
             </button>
-          ) : null}
+          )}
         </div>
 
         {showForm && (
