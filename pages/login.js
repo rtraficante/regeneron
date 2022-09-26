@@ -7,6 +7,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     router.push("/");
   };
 
@@ -29,17 +30,6 @@ export default function Login() {
               placeholder="Enter domain"
               className="p-2 rounded-md border-2 mt-1"
             />
-            <select
-              id="domain"
-              value={domain}
-              onChange={(e) => setDomain(e.target.value)}
-              type="text"
-              placeholder="Enter domain"
-              className="p-2 rounded-md border-2 mt-1"
-            >
-              <option>Admin User</option>
-              <option>Non-Admin User</option>
-            </select>
             <button className="bg-blue-800 text-white rounded-md p-2 mt-4 hover:bg-blue-600 active:bg-blue-700">
               Log In
             </button>

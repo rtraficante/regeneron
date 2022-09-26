@@ -6,7 +6,6 @@ import ParentButton from "./ParentButton";
 
 const ConceptExpand = ({ concept, setSearchTerm, setEditForm }) => {
   const router = useRouter();
-
   const refreshData = () => {
     router.replace(router.asPath);
   };

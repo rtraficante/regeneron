@@ -11,7 +11,6 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
   });
 
   const router = useRouter();
-
   const refreshData = () => {
     router.replace(router.asPath);
   };
@@ -19,6 +18,7 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
   const [parentsSelected, setParentsSelected] = useState([]);
   const [childrenSelected, setChrildrenSelected] = useState([]);
 
+  // Format options in the way the multi select tool needs
   const options = concepts.map((val) => {
     return { id: val.id, label: val.displayName, value: val.displayName };
   });
@@ -26,7 +26,7 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const concept = await saveConcept({
+      await saveConcept({
         ...data,
         parents: parentsSelected,
         children: childrenSelected,
@@ -47,7 +47,10 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex flex-col items-center">
+    <form
+      onSubmit={handleSubmit}
+      className="mt-2 flex flex-col items-center bg-[#f6f6f6] p-2 py-4 rounded-md"
+    >
       <div className="grid grid-cols-2 gap-4 w-full">
         <input
           onChange={handleChange}

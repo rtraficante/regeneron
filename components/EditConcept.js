@@ -15,6 +15,9 @@ const EditConcept = ({ concept, concepts, setEditForm }) => {
     router.replace(router.asPath);
   };
 
+  // Preset the parents and the children in the format
+  // that React Multi Select needs it to be in for the information
+  // to be available on first render
   const presetParents = concept.parents.map((parent) => {
     return {
       id: parent.id,
@@ -22,19 +25,18 @@ const EditConcept = ({ concept, concepts, setEditForm }) => {
       value: parent.displayName,
     };
   });
-
   const presetChildren = concept.children.map((child) => {
     return { id: child.id, label: child.displayName, value: child.displayName };
   });
 
+  // Use the previously preset parents and children to set the initial state
   const [parentsSelected, setParentsSelected] = useState(presetParents);
   const [childrenSelected, setChrildrenSelected] = useState(presetChildren);
 
+  // Format the options for the multi select tool
   const options = concepts.map((val) => {
     return { id: val.id, label: val.displayName, value: val.displayName };
   });
-
-  console.log(parentsSelected);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +63,10 @@ const EditConcept = ({ concept, concepts, setEditForm }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex flex-col items-center">
+    <form
+      onSubmit={handleSubmit}
+      className="mt-2 flex flex-col items-center bg-[#f6f6f6] p-2 py-4 rounded-md"
+    >
       <div className="grid grid-cols-2 gap-4 w-full">
         <input
           onChange={handleChange}

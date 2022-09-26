@@ -3,7 +3,7 @@ import React from "react";
 
 const ConceptSearch = ({ searchTerm, setSearchTerm }) => {
   return (
-    <form className="flex flex-1 items-center space-x-2 rounded border border-gray-200 bg-gray-100 p-3">
+    <form className="flex flex-1 items-center space-x-2 rounded border border-gray-200 bg-gray-100 px-3 py-2">
       <MagnifyingGlassIcon className="w-5 text-gray-400" />
       <input
         name="email"

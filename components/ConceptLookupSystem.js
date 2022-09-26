@@ -11,11 +11,14 @@ const ConceptLookupSystem = ({
   expandTicket,
   concepts,
 }) => {
+  // Form state for the Add Concept Form
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="mt-8 bg-white py-8 p-4 w-full max-w-[960px] mx-2 rounded space-y-2">
+    <div className="mt-8 bg-white p-8 w-full max-w-[960px] mx-2 rounded-md space-y-2">
       <div className="w-full">
+
+        {/* Search Bar */}
         <div className="flex space-x-4">
           <ConceptSearch
             searchTerm={searchTerm}
@@ -35,10 +38,12 @@ const ConceptLookupSystem = ({
           <AddConceptForm concepts={concepts} setShowForm={setShowForm} />
         )}
       </div>
+
       {filteredData.length === 0 ? (
         <p>No data fits that criteria.</p>
       ) : (
         <div>
+          {/* List of Concepts */}
           {filteredData.map((concept) => (
             <div className="mt-2" key={concept.id}>
               <Concept

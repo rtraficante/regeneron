@@ -8,6 +8,8 @@ export default async function handler(req, res) {
       const { displayName, alternativeNames, description, parents, children } =
         conceptData;
 
+      // Mapping the parents and children to just be an array of IDs
+      // as per Prisma's format for connecting relationships between tables
       const parentIds = parents.map((val) => ({ id: val.id }));
       const childrenIds = children.map((val) => ({ id: val.id }));
 

@@ -31,12 +31,16 @@ const Concept = ({
           />
         </div>
       </div>
+
+      {/* Show Edit Concept Form when it has been clicked and the concept ID matches the expanded concept ID */}
       {editForm && expandTicket.id === concept.id ? (
         <EditConcept
           concept={concept}
           setEditForm={setEditForm}
           concepts={concepts}
         />
+
+        // Otherwise just show the concept with the ID that matches the expanded concept ID
       ) : expandTicket.state && expandTicket.id === concept.id ? (
         <ConceptExpand
           concept={concept}

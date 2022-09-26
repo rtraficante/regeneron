@@ -3,18 +3,20 @@ import ConceptLookupSystem from "../components/ConceptLookupSystem";
 import prisma from "../client";
 
 export default function Home({ concepts }) {
+  // Information about which concept to expand when clicked on
   const [expandTicket, setExpandTicket] = useState({
     state: false,
     id: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
 
+  // Search bar functionality - Filter the search base on if
+  // the character typed in are included in the concept display name
   const dynamicSearch = () => {
     return concepts.filter((concept) =>
       concept.displayName.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
-
   const filteredData = dynamicSearch();
 
   const toggleExpandTicket = (id) => {
@@ -40,6 +42,7 @@ export default function Home({ concepts }) {
   );
 }
 
+// Getting initial concepts loaded
 export async function getServerSideProps() {
   const concepts = await prisma.concept.findMany({
     include: {
