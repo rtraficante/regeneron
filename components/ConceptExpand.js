@@ -4,7 +4,7 @@ import { deleteConcept } from "../util/api";
 import ChildButton from "./ChildButton";
 import ParentButton from "./ParentButton";
 
-const ConceptExpand = ({ concept, setSearchTerm }) => {
+const ConceptExpand = ({ concept, setSearchTerm, setEditForm }) => {
   const router = useRouter();
 
   const refreshData = () => {
@@ -36,15 +36,23 @@ const ConceptExpand = ({ concept, setSearchTerm }) => {
               <p>None</p>
             )}
           </div>
-          <button
-            className="p-2 py-3 mt-4 w-full max-w-[160px] text-sm bg-red-700 hover:bg-red-600 text-white rounded drop-shadow"
-            onClick={async () => {
-              await deleteConcept(concept.id);
-              refreshData();
-            }}
-          >
-            Delete Concept
-          </button>
+          <div className="space-x-2">
+            <button
+              className="p-2 mt-4 w-full max-w-[120px] text-sm bg-blue-800 hover:bg-blue-600 text-white rounded drop-shadow"
+              onClick={() => setEditForm(true)}
+            >
+              Edit Concept
+            </button>
+            <button
+              className="p-2 mt-4 w-full max-w-[120px] text-sm bg-red-700 hover:bg-red-600 text-white rounded drop-shadow"
+              onClick={async () => {
+                await deleteConcept(concept.id);
+                refreshData();
+              }}
+            >
+              Delete Concept
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,13 +1,17 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
-import React from "react";
+import React, { useState } from "react";
 import ConceptExpand from "./ConceptExpand";
+import EditConcept from "./EditConcept";
 
 const Concept = ({
   toggleExpandTicket,
   concept,
   expandTicket,
   setSearchTerm,
+  concepts,
 }) => {
+  const [editForm, setEditForm] = useState(false);
+
   return (
     <div className="overflow-hidden flex flex-col mx-auto w-full bg-white p-4 rounded drop-shadow cursor-pointer">
       <div
@@ -18,15 +22,27 @@ const Concept = ({
           <p className="font-bold">{concept.displayName}</p>
         </div>
         <div>
-          {expandTicket.state && expandTicket.id === concept.id ? (
-            <ChevronUpIcon className="w-5" />
-          ) : (
-            <ChevronDownIcon className="w-5" />
-          )}
+          <ChevronDownIcon
+            className={`w-5 transition-transform duration-150 ${
+              expandTicket.state && expandTicket.id === concept.id
+                ? "rotate-180"
+                : null
+            } `}
+          />
         </div>
       </div>
-      {expandTicket.state && expandTicket.id === concept.id ? (
-        <ConceptExpand concept={concept} setSearchTerm={setSearchTerm} />
+      {editForm && expandTicket.id === concept.id ? (
+        <EditConcept
+          concept={concept}
+          setEditForm={setEditForm}
+          concepts={concepts}
+        />
+      ) : expandTicket.state && expandTicket.id === concept.id ? (
+        <ConceptExpand
+          concept={concept}
+          setSearchTerm={setSearchTerm}
+          setEditForm={setEditForm}
+        />
       ) : null}
     </div>
   );

@@ -46,6 +46,7 @@ const ConceptLookupSystem = ({
                 toggleExpandTicket={toggleExpandTicket}
                 concept={concept}
                 expandTicket={expandTicket}
+                concepts={concepts}
               />
             </div>
           ))}

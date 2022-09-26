@@ -1,37 +1,51 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
-import { saveConcept } from "../util/api";
+import { updateConcept } from "../util/api";
 
-const AddConceptForm = ({ concepts, setShowForm }) => {
+const EditConcept = ({ concept, concepts, setEditForm }) => {
   const [data, setData] = useState({
-    displayName: "",
-    alternativeNames: "",
-    description: "",
+    displayName: concept.displayName,
+    alternativeNames: concept.alternativeNames,
+    description: concept.description,
   });
 
   const router = useRouter();
-
   const refreshData = () => {
     router.replace(router.asPath);
   };
 
-  const [parentsSelected, setParentsSelected] = useState([]);
-  const [childrenSelected, setChrildrenSelected] = useState([]);
+  const presetParents = concept.parents.map((parent) => {
+    return {
+      id: parent.id,
+      label: parent.displayName,
+      value: parent.displayName,
+    };
+  });
+
+  const presetChildren = concept.children.map((child) => {
+    return { id: child.id, label: child.displayName, value: child.displayName };
+  });
+
+  const [parentsSelected, setParentsSelected] = useState(presetParents);
+  const [childrenSelected, setChrildrenSelected] = useState(presetChildren);
 
   const options = concepts.map((val) => {
     return { id: val.id, label: val.displayName, value: val.displayName };
   });
 
+  console.log(parentsSelected);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const concept = await saveConcept({
+      await updateConcept(concept.id, {
         ...data,
         parents: parentsSelected,
         children: childrenSelected,
       });
-      setShowForm(false);
+
+      setEditForm(false);
       refreshData();
     } catch (err) {
       console.log(err);
@@ -94,11 +108,11 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
 
       <div className="flex justify-around w-full">
         <button className="p-2 py-3 mt-4 w-full max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 text-white rounded drop-shadow">
-          Save Concept
+          Save Changes
         </button>
         <button
           className="p-2 py-3 mt-4 w-full max-w-[200px] text-sm bg-white border-blue-800 border-2 text-blue-800 hover:text-blue-600 hover:border-blue-600 rounded drop-shadow"
-          onClick={() => setShowForm(false)}
+          onClick={() => setEditForm(false)}
         >
           Cancel
         </button>
@@ -107,4 +121,4 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
   );
 };
 
-export default AddConceptForm;
+export default EditConcept;
