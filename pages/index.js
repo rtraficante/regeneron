@@ -37,7 +37,9 @@ export default function Home({ concepts }) {
         <title>Master Oncology</title>
       </Head>
       <div className="flex mx-auto items-center flex-col mt-8 overflow-hidden h-[100%]">
-        <h2 className="text-3xl text-center">Master Oncology Lookup</h2>
+        <h2 className="text-3xl text-center font-bold">
+          Master Oncology Lookup
+        </h2>
         <ConceptLookupSystem
           concepts={concepts}
           filteredData={filteredData}

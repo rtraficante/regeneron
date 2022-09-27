@@ -1,4 +1,4 @@
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import ConceptExpand from "./ConceptExpand";
 import EditConcept from "./EditConcept";
@@ -39,9 +39,8 @@ const Concept = ({
           setEditForm={setEditForm}
           concepts={concepts}
         />
-
-        // Otherwise just show the concept with the ID that matches the expanded concept ID
-      ) : expandTicket.state && expandTicket.id === concept.id ? (
+      ) : // Otherwise just show the concept with the ID that matches the expanded concept ID
+      expandTicket.state && expandTicket.id === concept.id ? (
         <ConceptExpand
           concept={concept}
           setSearchTerm={setSearchTerm}
