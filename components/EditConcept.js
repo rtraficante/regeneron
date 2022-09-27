@@ -65,7 +65,8 @@ const EditConcept = ({ concept, concepts, setEditForm }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-2 flex flex-col items-center bg-[#f6f6f6] h-[460px] p-4 rounded-md"
+      className="mt-2 flex flex-col items-center bg-[#f6f6f6] h-[460px] p-4
+      rounded-md"
     >
       <div className="md:grid md:grid-cols-2 space-y-2 md:space-y-0 md:gap-8 w-full">
         <input
