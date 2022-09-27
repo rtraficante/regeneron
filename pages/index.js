@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ConceptLookupSystem from "../components/ConceptLookupSystem";
 import prisma from "../client";
+import Head from "next/head";
 
 export default function Home({ concepts }) {
   // Information about which concept to expand when clicked on
@@ -12,10 +13,13 @@ export default function Home({ concepts }) {
 
   // Search bar functionality - Filter the search base on if
   // the character typed in are included in the concept display name
+  // Also - sort alphabetically
   const dynamicSearch = () => {
-    return concepts.filter((concept) =>
-      concept.displayName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    return concepts
+      .sort((a, b) => a.displayName.localeCompare(b.displayName))
+      .filter((concept) =>
+        concept.displayName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
   };
   const filteredData = dynamicSearch();
 
@@ -28,17 +32,22 @@ export default function Home({ concepts }) {
   };
 
   return (
-    <div className="flex mx-auto items-center flex-col mt-8 overflow-hidden h-[100%]">
-      <h2 className="text-3xl text-center">Master Oncology Lookup</h2>
-      <ConceptLookupSystem
-        concepts={concepts}
-        filteredData={filteredData}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        toggleExpandTicket={toggleExpandTicket}
-        expandTicket={expandTicket}
-      />
-    </div>
+    <>
+      <Head>
+        <title>Master Oncology</title>
+      </Head>
+      <div className="flex mx-auto items-center flex-col mt-8 overflow-hidden h-[100%]">
+        <h2 className="text-3xl text-center">Master Oncology Lookup</h2>
+        <ConceptLookupSystem
+          concepts={concepts}
+          filteredData={filteredData}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          toggleExpandTicket={toggleExpandTicket}
+          expandTicket={expandTicket}
+        />
+      </div>
+    </>
   );
 }
 

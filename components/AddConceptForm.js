@@ -51,7 +51,7 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
       onSubmit={handleSubmit}
       className="mt-2 flex flex-col items-center bg-[#f6f6f6] p-2 py-4 rounded-md"
     >
-      <div className="grid grid-cols-2 gap-4 w-full">
+      <div className="grid md:grid-cols-2 gap-2 md:gap-4 w-full">
         <input
           onChange={handleChange}
           value={data.displayName}
@@ -95,12 +95,12 @@ const AddConceptForm = ({ concepts, setShowForm }) => {
         />
       </div>
 
-      <div className="flex justify-around w-full">
-        <button className="p-2 py-3 mt-4 w-full max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 text-white rounded drop-shadow">
+      <div className="flex flex-col md:flex-row justify-around w-full">
+        <button className="p-2 py-3 mt-4 w-full md:max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 text-white rounded drop-shadow">
           Save Concept
         </button>
         <button
-          className="p-2 py-3 mt-4 w-full max-w-[200px] text-sm bg-white border-blue-800 border-2 text-blue-800 hover:text-blue-600 hover:border-blue-600 rounded drop-shadow"
+          className="p-2 py-3 mt-2 w-full md:max-w-[200px] text-sm bg-white border-blue-800 border-2 text-blue-800 hover:text-blue-600 hover:border-blue-600 rounded drop-shadow"
           onClick={() => setShowForm(false)}
         >
           Cancel

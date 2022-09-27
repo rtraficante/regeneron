@@ -15,18 +15,17 @@ const ConceptLookupSystem = ({
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="mt-8 bg-white p-8 w-full max-w-[960px] mx-2 rounded-md space-y-2">
+    <div className="mt-8 bg-white p-4 md:p-8 w-full max-w-[960px] mx-2 rounded-md space-y-2">
       <div className="w-full">
-
         {/* Search Bar */}
-        <div className="flex space-x-4">
+        <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4">
           <ConceptSearch
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
           {!showForm && (
             <button
-              className="p-2 py-3 w-[180px] max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 hover:drop-shadow-lg text-white rounded drop-shadow"
+              className="p-2 py-3 w-full md:w-[180px] md:max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 hover:drop-shadow-lg text-white rounded drop-shadow"
               onClick={() => setShowForm(true)}
             >
               Add Concept
