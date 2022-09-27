@@ -65,9 +65,9 @@ const EditConcept = ({ concept, concepts, setEditForm }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-2 flex flex-col items-center bg-[#f6f6f6] p-2 py-4 rounded-md"
+      className="mt-2 flex flex-col items-center bg-[#f6f6f6] h-[460px] p-4 rounded-md"
     >
-      <div className="md:grid md:grid-cols-2 space-y-2 md:space-y-0 md:gap-4 w-full">
+      <div className="md:grid md:grid-cols-2 space-y-2 md:space-y-0 md:gap-8 w-full">
         <input
           onChange={handleChange}
           value={data.displayName}
@@ -99,6 +99,7 @@ const EditConcept = ({ concept, concepts, setEditForm }) => {
             value={childrenSelected}
             onChange={setChrildrenSelected}
             labelledBy="Select Children"
+            className="multi-select"
           />
         </div>
 
@@ -111,8 +112,8 @@ const EditConcept = ({ concept, concepts, setEditForm }) => {
         />
       </div>
 
-      <div className="flex flex-col md:flex-row md:justify-around w-full">
-        <button className="p-2 py-3 mt-4 w-full md:max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 text-white rounded drop-shadow">
+      <div className="flex flex-col md:flex-row md:justify-around w-full mt-4 md:mt-12">
+        <button className="p-2 py-3 w-full md:max-w-[200px] text-sm bg-blue-800 hover:bg-blue-600 text-white rounded drop-shadow">
           Save Changes
         </button>
         <button
